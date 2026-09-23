@@ -4,7 +4,7 @@ import { ProductGridSkeleton, Skeleton } from "@/components/ui/Skeleton";
 export default function ShopLoading() {
   return (
     <>
-      <div className="border-b border-line bg-cream-100">
+      <div className="border-b border-line bg-shell">
         <Container className="py-12 sm:py-16">
           <Skeleton className="mb-5 h-3 w-24" />
           <Skeleton className="h-14 w-2/3 max-w-md rounded-2xl sm:h-20" />

@@ -15,10 +15,10 @@ export function WishlistContent({ products }: { products: Product[] }) {
   if (saved.length === 0) {
     return (
       <EmptyState
-        className="rounded-3xl bg-cream-100 py-20"
+        className="rounded-3xl bg-shell py-20"
         illustration={
-          <span className="relative grid size-28 place-items-center rounded-full bg-pink-100">
-            <HeartDoodle className="size-12 text-coral" />
+          <span className="relative grid size-28 place-items-center rounded-full bg-blush-50">
+            <HeartDoodle className="size-12 text-berry" />
             <SparkleDoodle className="absolute top-3 right-3 size-5 text-ink" />
           </span>
         }

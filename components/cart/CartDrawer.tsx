@@ -43,7 +43,7 @@ export function CartDrawer() {
   return (
     <Sheet open={open} onClose={close} label="Shopping bag">
       <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5 sm:px-6">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-lg">
           Your bag {count > 0 && <span className="text-muted">({count})</span>}
         </h2>
         <button
@@ -51,7 +51,7 @@ export function CartDrawer() {
           onClick={close}
           aria-label="Close bag"
           data-autofocus
-          className="grid size-10 place-items-center rounded-full hover:bg-ink/5"
+          className="grid size-10 place-items-center rounded-full hover:bg-shell"
         >
           <X className="size-5" />
         </button>
@@ -80,10 +80,10 @@ export function CartDrawer() {
               <CartLine key={item.id} item={item} onNavigate={close} />
             ))}
           </ul>
-          <div className="shrink-0 border-t border-line bg-cream-100 px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-6">
+          <div className="shrink-0 border-t border-line bg-shell px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-6">
             <div className="flex items-baseline justify-between">
               <span className="text-[15px] font-medium">Subtotal</span>
-              <span className="font-display text-xl font-semibold">{formatPrice(subtotal)}</span>
+              <span className="font-display text-xl font-medium">{formatPrice(subtotal)}</span>
             </div>
             <p className="mt-1 text-xs text-muted">Taxes included. Shipping calculated at checkout.</p>
             <div className="mt-4 grid grid-cols-2 gap-2.5">
@@ -118,7 +118,7 @@ function ShippingProgress({ subtotal }: { subtotal: number }) {
       <p className="flex items-center gap-2 text-[13px] text-ink-soft">
         {remaining === 0 ? (
           <>
-            <Sparkles className="size-4 text-coral" aria-hidden />
+            <Sparkles className="size-4 text-berry" aria-hidden />
             <span>
               Yay — you&apos;ve unlocked <strong className="font-semibold text-ink">free shipping</strong>.
             </span>
@@ -130,7 +130,7 @@ function ShippingProgress({ subtotal }: { subtotal: number }) {
         )}
       </p>
       <div
-        className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-cream-200"
+        className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-sand"
         role="progressbar"
         aria-label="Progress to free shipping"
         aria-valuemin={0}
@@ -138,7 +138,7 @@ function ShippingProgress({ subtotal }: { subtotal: number }) {
         aria-valuenow={Math.round(progress * 100)}
       >
         <div
-          className="h-full origin-left rounded-full bg-coral transition-transform duration-700 ease-out-soft"
+          className="h-full origin-left rounded-full bg-[#ef9fb2] transition-transform duration-700 ease-out-soft"
           style={{ transform: `scaleX(${progress})` }}
         />
       </div>
@@ -152,7 +152,7 @@ function CartLine({ item, onNavigate }: { item: CartItem; onNavigate: () => void
       <Link
         href={`/products/${item.slug}`}
         onClick={onNavigate}
-        className="relative h-[104px] w-[84px] shrink-0 overflow-hidden rounded-xl bg-cream-200"
+        className="relative h-[104px] w-[84px] shrink-0 overflow-hidden rounded-xl bg-sand"
       >
         <Image src={item.image.src} alt={item.image.alt} fill sizes="84px" className="object-cover" />
       </Link>
@@ -165,7 +165,7 @@ function CartLine({ item, onNavigate }: { item: CartItem; onNavigate: () => void
           >
             {item.name}
           </Link>
-          <span className="shrink-0 font-display text-[15px] font-semibold">{formatPrice(item.price * item.quantity)}</span>
+          <span className="shrink-0 font-display text-[15px] font-medium">{formatPrice(item.price * item.quantity)}</span>
         </div>
         <span className="mt-0.5 text-xs text-muted">{formatPrice(item.price)} each</span>
         <div className="mt-auto flex items-center justify-between pt-3">
@@ -177,7 +177,7 @@ function CartLine({ item, onNavigate }: { item: CartItem; onNavigate: () => void
           <button
             type="button"
             onClick={() => actions.removeFromCart(item.id)}
-            className="text-xs font-medium text-muted underline-offset-4 hover:text-coral-dark hover:underline"
+            className="text-xs font-medium text-muted underline-offset-4 hover:text-berry hover:underline"
           >
             Remove<span className="sr-only"> {item.name}</span>
           </button>
@@ -195,9 +195,9 @@ function OrderConfirmation({ orderNumber, onClose }: { orderNumber: string; onCl
           <Check className="size-9 text-ink" strokeWidth={2.4} aria-hidden />
         </span>
         <StarDoodle className="absolute -top-2 -right-4 size-6 text-butter" />
-        <HeartDoodle className="absolute -bottom-1 -left-4 size-5 text-pink" />
+        <HeartDoodle className="absolute -bottom-1 -left-4 size-5 text-[#ef9fb2]" />
       </div>
-      <h3 className="text-2xl font-semibold">Order placed!</h3>
+      <h3 className="text-2xl">Order placed!</h3>
       <p className="mt-1 text-sm font-medium text-ink-soft">Order {orderNumber}</p>
       <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
         This is a demo checkout, so no payment was taken — but in real life, we&apos;d be wrapping your parcel right now.
@@ -211,10 +211,10 @@ function OrderConfirmation({ orderNumber, onClose }: { orderNumber: string; onCl
 
 function EmptyBagIllustration() {
   return (
-    <div className="relative grid size-32 place-items-center rounded-full bg-pink-100">
+    <div className="relative grid size-32 place-items-center rounded-full bg-blush-50">
       <GiftDoodle className="size-16 -rotate-6" />
       <StarDoodle className="absolute top-3 right-2 size-5 text-butter" />
-      <HeartDoodle className="absolute bottom-5 left-3 size-4 text-coral" />
+      <HeartDoodle className="absolute bottom-5 left-3 size-4 text-berry" />
     </div>
   );
 }

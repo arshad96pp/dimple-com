@@ -34,10 +34,10 @@ export function SignInForm() {
           placeholder="you@example.com"
           aria-invalid={!!error}
           aria-describedby={error ? "account-email-error" : undefined}
-          className="h-12 w-full rounded-xl border border-ink/15 bg-cream px-4 text-[15px] outline-none transition-colors focus:border-coral aria-invalid:border-coral-dark"
+          className="h-12 w-full rounded-xl border border-ink/12 bg-cream px-4 text-[15px] outline-none transition-colors focus:border-ink/40 aria-invalid:border-berry"
         />
         {error && (
-          <p id="account-email-error" role="alert" className="mt-1.5 text-xs font-medium text-coral-dark">
+          <p id="account-email-error" role="alert" className="mt-1.5 text-xs font-medium text-berry">
             {error}
           </p>
         )}

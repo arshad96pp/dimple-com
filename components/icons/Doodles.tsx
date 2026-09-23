@@ -35,8 +35,8 @@ export const SquiggleDoodle = (props: DoodleProps) => (
 
 export const GiftDoodle = (props: DoodleProps) => (
   <svg viewBox="0 0 64 64" aria-hidden {...props}>
-    <rect x="9" y="26" width="46" height="31" rx="4" fill="var(--color-coral)" />
-    <rect x="6" y="18" width="52" height="11" rx="3.5" fill="var(--color-coral-dark)" />
+    <rect x="9" y="26" width="46" height="31" rx="4" fill="var(--color-blush)" />
+    <rect x="6" y="18" width="52" height="11" rx="3.5" fill="#efa9b9" />
     <rect x="28.5" y="18" width="7" height="39" fill="var(--color-butter)" />
     <path d="M32 18c-3-7-12-11-14-6-1.6 3.8 6 6 14 6Zm0 0c3-7 12-11 14-6 1.6 3.8-6 6-14 6Z" fill="var(--color-butter)" stroke="var(--color-ink)" strokeWidth="1.5" strokeLinejoin="round" />
   </svg>
@@ -44,9 +44,9 @@ export const GiftDoodle = (props: DoodleProps) => (
 
 export const PencilDoodle = (props: DoodleProps) => (
   <svg viewBox="0 0 80 20" aria-hidden {...props}>
-    <rect x="12" y="4" width="56" height="12" rx="2" fill="var(--color-lavender)" />
-    <rect x="62" y="4" width="10" height="12" rx="2" fill="var(--color-pink)" />
-    <rect x="58" y="4" width="5" height="12" fill="var(--color-cream-200)" />
+    <rect x="12" y="4" width="56" height="12" rx="2" fill="#cbb8ea" />
+    <rect x="62" y="4" width="10" height="12" rx="2" fill="#efa9b9" />
+    <rect x="58" y="4" width="5" height="12" fill="var(--color-sand)" />
     <path d="M12 4 2 10l10 6Z" fill="#f3d7b0" />
     <path d="M5.5 8 2 10l3.5 2Z" fill="var(--color-ink)" />
   </svg>

@@ -1,5 +1,5 @@
 import type { Product } from "@/types";
-import { IMAGES, type ImageKey } from "./images";
+import { images, type ImageKey } from "./images";
 
 type ImageSeed = [key: ImageKey, alt: string, position?: string];
 
@@ -7,7 +7,7 @@ type ProductSeed = Omit<Product, "discount" | "images"> & {
   images: ImageSeed[];
 };
 
-const img = ([key, alt, position]: ImageSeed) => ({ src: IMAGES[key], alt, position });
+const img = ([key, alt, position]: ImageSeed) => ({ src: images.products[key], alt, position });
 
 const withDerivedFields = (seed: ProductSeed): Product => ({
   ...seed,
@@ -54,7 +54,6 @@ const seeds: ProductSeed[] = [
     ],
     description:
       "A weighty metal-barrel gel pen with a 0.5mm tip that glides. Refillable, because good pens deserve a long life.",
-    isNew: true,
     tags: ["him", "desk"],
   },
   {
@@ -72,7 +71,6 @@ const seeds: ProductSeed[] = [
     ],
     description:
       "Matte black, click-top, quietly smart. The pen you keep stealing back from your colleagues.",
-    isFeatured: true,
     tags: ["him", "desk"],
   },
   {
@@ -114,14 +112,14 @@ const seeds: ProductSeed[] = [
   },
   {
     id: "p-041",
-    name: "Happy Mail Sticker Sheets",
-    slug: "happy-mail-sticker-sheets",
+    name: "Berry Bloom Sticker Set",
+    slug: "berry-bloom-sticker-set",
     category: "stationery",
     price: 179,
     rating: 4.8,
     reviewCount: 367,
     images: [
-      ["peachPaper", "Floral illustrated paper beside a blush sheet and pencils", "8% 50%"],
+      ["peachPaper", "Blush paper with pencils and tape", "8% 50%"],
       ["washiDesk", "Washi tape and craft supplies on a teal desk"],
     ],
     badge: "New",
@@ -200,7 +198,7 @@ const seeds: ProductSeed[] = [
     reviewCount: 982,
     images: [
       ["giftPinkRibbon", "Kraft gift box tied with a pink satin ribbon"],
-      ["giftHeld", "Person holding a wrapped gift box"],
+      ["giftInHands", "Person holding a wrapped gift box"],
     ],
     badge: "Gift Pick",
     description:
@@ -273,7 +271,7 @@ const seeds: ProductSeed[] = [
     rating: 4.6,
     reviewCount: 129,
     images: [
-      ["giftHeld", "Hands holding a kraft-wrapped gift tied with striped twine"],
+      ["giftInHands", "Hands holding a kraft-wrapped gift tied with striped twine"],
       ["giftPinkRibbon", "Gift box with pink ribbon"],
     ],
     description:
@@ -420,6 +418,7 @@ const seeds: ProductSeed[] = [
       ["goldBracelet", "Gold chain bracelet on an open magazine"],
       ["necklace", "Delicate gold necklace worn with a white shirt"],
     ],
+    badge: "Just In",
     description:
       "A gold-plated chain bracelet that stacks beautifully. Adjustable, tarnish-resistant, gift-boxed.",
     isNew: true,
@@ -436,8 +435,8 @@ const seeds: ProductSeed[] = [
     rating: 4.7,
     reviewCount: 244,
     images: [
+      ["deskScene", "Tidy desk with notebook, mug and laptop", "30% 50%"],
       ["penCup", "Desk organiser full of colourful pens and sticky notes"],
-      ["deskScene", "Tidy desk with notebook, mug and laptop"],
     ],
     badge: "Sale",
     description:
@@ -526,14 +525,13 @@ const seeds: ProductSeed[] = [
     rating: 4.9,
     reviewCount: 588,
     images: [
+      ["candleAmber", "Amber jar candle held in cupped hands"],
       ["candleGlow", "Lit candle in a glass jar surrounded by fairy lights"],
-      ["candlePair", "Two amber candles glowing on a table"],
     ],
     badge: "Best Seller",
     description:
       "Soy wax, cotton wick, 40-hour burn. Notes of fig leaf, warm milk and the first sip of chai.",
     isBestSeller: true,
-    isFeatured: true,
     tags: ["her", "just-because", "besties"],
   },
   {
@@ -546,8 +544,8 @@ const seeds: ProductSeed[] = [
     rating: 4.8,
     reviewCount: 173,
     images: [
+      ["candlePair", "Two amber candles glowing on a table"],
       ["candleAmber", "Amber jar candle held in cupped hands"],
-      ["candleGlow", "Glowing candle in glass"],
     ],
     badge: "New",
     description:
@@ -620,7 +618,7 @@ const seeds: ProductSeed[] = [
       ["bottleGreen", "Matte sage green insulated bottle"],
       ["ceramicCups", "Stacked ceramic cups"],
     ],
-    badge: "New",
+    badge: "Just In",
     description:
       "Double-walled steel keeps drinks cold for 24 hours and hot for 12. Leak-proof, bag-friendly, 500ml.",
     isNew: true,
@@ -655,8 +653,8 @@ const seeds: ProductSeed[] = [
     rating: 4.6,
     reviewCount: 208,
     images: [
+      ["serumPastel", "White dropper bottle with a gold cap on a soft pink block"],
       ["serumDropper", "Amber dropper bottle on a wooden stand"],
-      ["serumWood", "Serum bottle on a wooden board with eucalyptus"],
     ],
     badge: "New",
     description:
@@ -768,6 +766,119 @@ const seeds: ProductSeed[] = [
       "A classic yellow squeaky duck, made from natural rubber. Bath-time's best co-worker.",
     isNew: true,
     tags: ["kids", "just-because"],
+  },
+  // ——— Newer additions ———
+  {
+    id: "p-042",
+    name: "Daisy Note Kit",
+    slug: "daisy-note-kit",
+    category: "stationery",
+    price: 449,
+    originalPrice: 549,
+    rating: 4.8,
+    reviewCount: 139,
+    images: [
+      ["clipboard", "Notepad on a clipboard beside a laptop on marble"],
+      ["peachPaper", "Peach notepaper with pencils and washi tape", "30% 50%"],
+    ],
+    badge: "Just In",
+    description:
+      "Daisy-print letter paper, twelve envelopes and a sheet of seal stickers. For thank-you notes that get kept.",
+    isNew: true,
+    isFeatured: true,
+    tags: ["her", "besties", "just-because"],
+  },
+  {
+    id: "p-043",
+    name: "Cozy Bear Mug",
+    slug: "cozy-bear-mug",
+    category: "desk",
+    price: 449,
+    rating: 4.8,
+    reviewCount: 221,
+    images: [
+      ["blueMug", "White stoneware mug against a periwinkle backdrop"],
+      ["whiteMug", "Plain white ceramic mug on a white table"],
+    ],
+    badge: "New",
+    description:
+      "A chubby 300ml stoneware mug with a tiny bear hiding at the bottom. Finish your chai to say hello.",
+    isNew: true,
+    isFeatured: true,
+    tags: ["him", "kids", "desk", "just-because"],
+  },
+  {
+    id: "p-044",
+    name: "Tiny Things Candle",
+    slug: "tiny-things-candle",
+    category: "lifestyle",
+    price: 399,
+    rating: 4.7,
+    reviewCount: 188,
+    images: [
+      ["candleAmber", "Small amber jar candle held in cupped hands"],
+      ["candlePair", "Two amber candles glowing on a table"],
+    ],
+    badge: "Limited",
+    description:
+      "A pocket-sized soy candle in pear and white tea. Twelve cosy hours — the perfect add-on to any gift.",
+    isNew: true,
+    tags: ["her", "besties", "just-because"],
+  },
+  {
+    id: "p-045",
+    name: "Petal Soft Skincare Set",
+    slug: "petal-soft-skincare-set",
+    category: "beauty",
+    price: 1399,
+    originalPrice: 1699,
+    rating: 4.8,
+    reviewCount: 96,
+    images: [
+      ["skincarePastel", "Pastel skincare bottles arranged on soft blocks"],
+      ["lotion", "White lotion tube resting on linen"],
+    ],
+    badge: "Gift Pick",
+    description:
+      "Cleanser, toner, mist and a mini moisturiser in a reusable pouch. A gentle routine that looks good on a shelf.",
+    isFeatured: true,
+    tags: ["her", "besties"],
+  },
+  {
+    id: "p-046",
+    name: "Rainbow Play Blocks",
+    slug: "rainbow-play-blocks",
+    category: "toys",
+    price: 999,
+    rating: 4.9,
+    reviewCount: 74,
+    images: [
+      ["toyFlatlay", "Colourful toy blocks and figures laid out on white"],
+      ["buildingBlocks", "Wooden building blocks in bright colours"],
+    ],
+    badge: "Just In",
+    description:
+      "Thirty chunky beechwood blocks in soft rainbow shades, finished with water-based paint. Stack, sort, repeat.",
+    isNew: true,
+    tags: ["kids"],
+  },
+  {
+    id: "p-047",
+    name: "Little Letters Pen Set",
+    slug: "little-letters-pen-set",
+    category: "stationery",
+    price: 299,
+    rating: 4.7,
+    reviewCount: 256,
+    images: [
+      ["notesAndPen", "Pen resting across a lined notes page"],
+      ["tealPen", "Deep blue gel pen on a teal background"],
+    ],
+    badge: "Best Seller",
+    description:
+      "Five fine-liners in dusty rose, sage, lilac, sky and charcoal. Smudge-proof, quick-dry, made for lettering.",
+    isBestSeller: true,
+    tags: ["besties", "desk", "her"],
   },
 ];
 

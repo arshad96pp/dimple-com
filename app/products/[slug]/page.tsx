@@ -10,7 +10,7 @@ import { Container } from "@/components/ui/Container";
 import { Price } from "@/components/ui/Price";
 import { Rating } from "@/components/ui/Rating";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ProductBadge } from "@/components/products/ProductBadge";
+import { Badge } from "@/components/ui/Badge";
 import { ProductGallery } from "@/components/products/ProductGallery";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { PurchasePanel } from "@/components/products/PurchasePanel";
@@ -91,12 +91,12 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <div className="lg:col-span-6 lg:pt-4">
             <div className="lg:sticky lg:top-28">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold tracking-[0.16em] text-subtle uppercase">
+                <span className="eyebrow">
                   {categoryLabels[product.category]}
                 </span>
-                {product.badge && <ProductBadge badge={product.badge} />}
+                {product.badge && <Badge badge={product.badge} />}
               </div>
-              <h1 className="mt-3 text-4xl leading-[1.02] font-semibold sm:text-5xl lg:text-6xl">{product.name}</h1>
+              <h1 className="mt-3 text-4xl leading-[1.02] tracking-[-0.045em] sm:text-5xl lg:text-[3.4rem]">{product.name}</h1>
               {product.rating && <Rating value={product.rating} count={product.reviewCount} size="md" className="mt-4" />}
               <Price
                 price={product.price}
@@ -111,16 +111,16 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 <PurchasePanel product={product} />
               </div>
 
-              <ul className="mt-8 grid gap-3 rounded-2xl bg-cream-100 p-5 text-sm text-ink-soft sm:grid-cols-3">
-                <li className="flex items-center gap-2.5"><Truck className="size-4 text-coral" aria-hidden /> Ships in 24h</li>
-                <li className="flex items-center gap-2.5"><Gift className="size-4 text-coral" aria-hidden /> Gift-ready</li>
-                <li className="flex items-center gap-2.5"><RotateCcw className="size-4 text-coral" aria-hidden /> 7-day returns</li>
+              <ul className="mt-8 grid gap-3 rounded-[20px] bg-shell p-5 text-sm text-ink-soft sm:grid-cols-3">
+                <li className="flex items-center gap-2.5"><Truck className="size-4 text-berry" aria-hidden /> Ships in 24h</li>
+                <li className="flex items-center gap-2.5"><Gift className="size-4 text-berry" aria-hidden /> Gift-ready</li>
+                <li className="flex items-center gap-2.5"><RotateCcw className="size-4 text-berry" aria-hidden /> 7-day returns</li>
               </ul>
 
               <div className="mt-8 divide-y divide-line border-y border-line">
                 {details.map((d, i) => (
                   <details key={d.title} open={i === 0} className="group py-4">
-                    <summary className="flex cursor-pointer list-none items-center justify-between font-display text-base font-semibold [&::-webkit-details-marker]:hidden">
+                    <summary className="flex cursor-pointer list-none items-center justify-between font-display text-base [&::-webkit-details-marker]:hidden">
                       {d.title}
                       <span aria-hidden className="text-xl leading-none font-normal transition-transform duration-300 group-open:rotate-45">+</span>
                     </summary>
@@ -134,7 +134,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       </Container>
 
       {related.length > 0 && (
-        <section aria-labelledby="related-title" className="border-t border-line bg-cream-100 py-20 sm:py-24">
+        <section aria-labelledby="related-title" className="border-t border-line bg-shell py-20 sm:py-24">
           <Container>
             <SectionHeading id="related-title" eyebrow="You might also love" title="Goes Well With" />
             <ProductGrid products={related} columns={4} />

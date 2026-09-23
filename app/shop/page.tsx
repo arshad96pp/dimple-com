@@ -67,14 +67,14 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
 
   return (
     <>
-      <section className="border-b border-line bg-cream-100">
+      <section className="border-b border-line bg-gradient-to-b from-blush-50 to-cream">
         <Container className="py-12 sm:py-16">
           <nav aria-label="Breadcrumb" className="mb-4 text-xs text-muted">
             <Link href="/" className="hover:text-ink">Home</Link>
             <span className="mx-2" aria-hidden>/</span>
             <span className="text-ink">Shop</span>
           </nav>
-          <h1 className="text-[2.6rem] leading-none font-semibold sm:text-6xl lg:text-7xl">{title}</h1>
+          <h1 className="text-[2.6rem] leading-none tracking-[-0.05em] sm:text-6xl lg:text-7xl">{title}</h1>
           <p className="mt-4 max-w-lg text-base text-muted sm:text-lg">{blurb}</p>
         </Container>
       </section>
@@ -90,7 +90,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
                     aria-current={f.active ? "page" : undefined}
                     className={cn(
                       "inline-flex h-9 items-center rounded-full border px-4 text-sm font-medium whitespace-nowrap transition-colors duration-300",
-                      f.active ? "border-ink bg-ink text-cream" : "border-ink/12 text-ink-soft hover:border-ink/40 hover:text-ink",
+                      f.active ? "border-ink/80 bg-paper text-ink shadow-[0_2px_8px_-2px_rgba(37,37,37,0.12)]" : "border-ink/10 text-muted hover:border-ink/30 hover:text-ink",
                     )}
                   >
                     {f.label}
@@ -112,11 +112,11 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
         </div>
 
         {products.length ? (
-          <ProductGrid products={products} columns={4} />
+          <ProductGrid products={products} columns={5} />
         ) : (
           <EmptyState
             illustration={
-              <span className="grid size-24 place-items-center rounded-full bg-lavender-100">
+              <span className="grid size-24 place-items-center rounded-full bg-lavender-50">
                 <SearchX className="size-9 text-ink" strokeWidth={1.6} />
               </span>
             }

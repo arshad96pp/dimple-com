@@ -10,14 +10,13 @@ export function QuickViewButton({ product, className }: { product: Product; clas
     <button
       type="button"
       onClick={() => actions.openQuickView(product)}
+      aria-label={`Quick view: ${product.name}`}
       className={cn(
-        "inline-flex h-10 items-center justify-center gap-2 rounded-full bg-cream/95 px-4 text-[13px] font-medium text-ink backdrop-blur-sm transition-colors duration-300 hover:bg-ink hover:text-cream",
+        "grid size-10 shrink-0 place-items-center rounded-full bg-paper/95 text-ink shadow-[0_8px_24px_-12px_rgba(37,37,37,0.35)] backdrop-blur-sm transition-colors duration-300 hover:bg-ink hover:text-cream",
         className,
       )}
     >
       <Eye className="size-4" aria-hidden />
-      Quick view
-      <span className="sr-only">of {product.name}</span>
     </button>
   );
 }

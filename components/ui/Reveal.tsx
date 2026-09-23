@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
 interface RevealProps {
@@ -9,19 +9,25 @@ interface RevealProps {
   delay?: number;
   /** Distance in px to travel upward while fading in. */
   y?: number;
-  as?: "div" | "section" | "li";
+  /** Start slightly smaller — for images and cards, not text. */
+  scale?: boolean;
+  as?: "div" | "section" | "li" | "ul";
+  id?: string;
 }
 
-/** Subtle fade-and-rise when an element first enters the viewport. */
-export function Reveal({ children, className, delay = 0, y = 24, as = "div" }: RevealProps) {
-  const reduce = useReducedMotion();
+/**
+ * The one scroll-reveal used across the site: a soft fade-and-rise the first
+ * time an element is ~15% visible. Reduced motion is handled by MotionConfig.
+ */
+export function Reveal({ children, className, delay = 0, y = 20, scale = false, as = "div", id }: RevealProps) {
   const Tag = m[as];
   return (
     <Tag
+      id={id}
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+      initial={{ opacity: 0, y, scale: scale ? 0.97 : 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}

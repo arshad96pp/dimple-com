@@ -21,24 +21,29 @@ export function Toaster() {
         {toasts.map((toast) => (
           <m.div
             key={toast.id}
-            initial={{ opacity: 0, y: 16, scale: 0.97 }}
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.97, transition: { duration: 0.2 } }}
+            exit={{ opacity: 0, y: 6, scale: 0.98, transition: { duration: 0.2 } }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-2xl bg-ink py-3 pr-2 pl-3 text-cream shadow-[0_18px_40px_-16px_rgba(31,27,25,0.55)]"
+            className="pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-2xl border border-line bg-paper py-2.5 pr-2 pl-2.5 text-ink shadow-[0_18px_40px_-20px_rgba(37,37,37,0.3)]"
           >
-            <span className={cn("grid size-8 shrink-0 place-items-center rounded-full", toast.tone === "success" ? "bg-mint text-ink" : "bg-cream/10 text-butter")}>
+            <span
+              className={cn(
+                "grid size-9 shrink-0 place-items-center rounded-full",
+                toast.tone === "success" ? "bg-mint" : "bg-blush",
+              )}
+            >
               <Check className="size-4" aria-hidden />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold">{toast.title}</p>
-              {toast.description && <p className="truncate text-xs text-cream/65">{toast.description}</p>}
+              <p className="text-sm font-medium">{toast.title}</p>
+              {toast.description && <p className="truncate text-xs text-muted">{toast.description}</p>}
             </div>
             <button
               type="button"
               onClick={() => actions.dismissToast(toast.id)}
               aria-label="Dismiss notification"
-              className="grid size-8 shrink-0 place-items-center rounded-full text-cream/60 hover:bg-cream/10 hover:text-cream"
+              className="grid size-8 shrink-0 place-items-center rounded-full text-subtle hover:bg-shell hover:text-ink"
             >
               <X className="size-4" />
             </button>

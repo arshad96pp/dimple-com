@@ -8,6 +8,8 @@ interface SectionHeadingProps {
   title: ReactNode;
   description?: ReactNode;
   action?: { label: string; href: string };
+  /** Extra controls on the right (e.g. carousel arrows); sits beside `action`. */
+  aside?: ReactNode;
   align?: "left" | "center";
   className?: string;
   id?: string;
@@ -18,6 +20,7 @@ export function SectionHeading({
   title,
   description,
   action,
+  aside,
   align = "left",
   className,
   id,
@@ -32,30 +35,37 @@ export function SectionHeading({
       )}
     >
       <div className={cn("max-w-2xl", centered && "mx-auto")}>
-        {eyebrow && (
-          <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-coral">
-            <span aria-hidden className="h-px w-6 bg-current" />
-            {eyebrow}
-          </p>
-        )}
-        <h2 id={id} className="text-[2rem] leading-[1.05] font-semibold text-ink sm:text-5xl lg:text-[3.4rem]">
+        {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
+        <h2
+          id={id}
+          className="text-[2rem] leading-[1.05] text-ink min-[400px]:text-[2.25rem] sm:text-[2.75rem] lg:text-[3.25rem]"
+        >
           {title}
         </h2>
-        {description && <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{description}</p>}
+        {description && (
+          <p className={cn("mt-3 max-w-md text-[15px] leading-relaxed text-muted sm:text-base", centered && "mx-auto")}>
+            {description}
+          </p>
+        )}
       </div>
-      {action && (
-        <Link
-          href={action.href}
-          className="group inline-flex shrink-0 items-center gap-2 self-start text-sm font-semibold text-ink md:self-auto"
-        >
-          <span className="relative">
-            {action.label}
-            <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-100 bg-ink transition-transform duration-500 ease-out-soft group-hover:scale-x-0" />
-          </span>
-          <span className="grid size-8 place-items-center rounded-full border border-ink/15 transition-colors duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-cream">
-            <ArrowRight className="size-3.5" aria-hidden />
-          </span>
-        </Link>
+      {(action || aside) && (
+        <div className="flex shrink-0 items-center gap-5">
+          {action && (
+            <Link
+              href={action.href}
+              className="group inline-flex items-center gap-2 text-sm font-medium text-ink"
+            >
+              <span className="underline decoration-ink/20 underline-offset-[6px] transition-colors duration-300 group-hover:decoration-ink">
+                {action.label}
+              </span>
+              <ArrowRight
+                className="size-4 transition-transform duration-300 ease-out-soft group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </Link>
+          )}
+          {aside}
+        </div>
       )}
     </div>
   );

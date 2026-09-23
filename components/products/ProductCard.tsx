@@ -1,45 +1,52 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { Star } from "lucide-react";
 import { categoryLabels } from "@/data/categories";
-import { cn, pad2 } from "@/lib/utils";
-import type { Product } from "@/types";
+import { categoryTone, cn, toneClasses } from "@/lib/utils";
+import type { Product, ProductBadge } from "@/types";
+import { Badge } from "@/components/ui/Badge";
 import { Price } from "@/components/ui/Price";
-import { AddToCartButton } from "./AddToCartButton";
-import { ProductBadge } from "./ProductBadge";
+import { Rating } from "@/components/ui/Rating";
+import { QuickAdd } from "./QuickAdd";
 import { QuickViewButton } from "./QuickViewButton";
 import { WishlistButton } from "./WishlistButton";
 
 interface ProductCardProps {
   product: Product;
-  /** Optional ranking shown as a small numeral (Best Sellers). */
-  rank?: number;
-  /** Optional line of social proof under the title (Trending). */
-  note?: ReactNode;
+  /** Override the product's own badge (e.g. "Just In" on a new-arrivals rail). */
+  badge?: ProductBadge | null;
   /** Responsive `sizes` hint for next/image. */
   sizes?: string;
   className?: string;
 }
 
+/**
+ * White card on the cream page, pastel image well per category.
+ * Desktop: hover swaps to the second photo, reveals wishlist and slides up
+ * quick add. Touch: everything is visible, nothing depends on hover.
+ */
 export function ProductCard({
   product,
-  rank,
-  note,
-  sizes = "(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 46vw",
+  badge,
+  sizes = "(min-width: 1280px) 20vw, (min-width: 1024px) 23vw, (min-width: 768px) 30vw, 46vw",
   className,
 }: ProductCardProps) {
   const [primary, secondary] = product.images;
   const href = `/products/${product.slug}`;
+  const shownBadge = badge === null ? undefined : (badge ?? product.badge);
 
   return (
     <article
       className={cn(
-        "group/card relative flex flex-col transition-transform duration-500 ease-out-soft lg:hover:-translate-y-1",
+        "group/card relative flex w-full flex-col rounded-[22px] border border-line/80 bg-paper p-1.5 transition-[box-shadow,border-color] duration-500 ease-out-soft sm:p-2 lg:hover:border-line lg:hover:shadow-[0_24px_48px_-32px_rgba(37,37,37,0.28)]",
         className,
       )}
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream-200">
+      <div
+        className={cn(
+          "relative aspect-[4/5] overflow-hidden rounded-[16px]",
+          toneClasses[categoryTone[product.category]].soft,
+        )}
+      >
         <Link href={href} tabIndex={-1} aria-hidden className="absolute inset-0">
           <Image
             src={primary.src}
@@ -59,55 +66,43 @@ export function ProductCard({
               fill
               sizes={sizes}
               style={{ objectPosition: secondary.position }}
-              className="hidden scale-[1.06] object-cover opacity-0 transition-[transform,opacity] duration-700 ease-out-soft lg:block lg:group-hover/card:scale-100 lg:group-hover/card:opacity-100"
+              className="hidden scale-[1.04] object-cover opacity-0 transition-[transform,opacity] duration-700 ease-out-soft lg:block lg:group-hover/card:scale-100 lg:group-hover/card:opacity-100"
             />
           )}
         </Link>
 
-        <div className="pointer-events-none absolute inset-x-3 top-3 flex items-start justify-between gap-2">
-          <div>{product.badge && <ProductBadge badge={product.badge} />}</div>
-          <WishlistButton product={product} className="pointer-events-auto" />
+        <div className="pointer-events-none absolute inset-x-2 top-2 flex items-start justify-between gap-2 sm:inset-x-2.5 sm:top-2.5">
+          <div>{shownBadge && <Badge badge={shownBadge} />}</div>
+          <WishlistButton
+            product={product}
+            className="pointer-events-auto lg:opacity-0 lg:group-focus-within/card:opacity-100 lg:group-hover/card:opacity-100 lg:data-[saved=true]:opacity-100"
+          />
         </div>
 
-        {rank !== undefined && (
-          <span
-            aria-hidden
-            className="absolute bottom-3 left-3 font-display text-[13px] font-semibold tracking-wider text-ink/80 transition-opacity duration-300 lg:group-hover/card:opacity-0"
-          >
-            <span className="rounded-full bg-cream/90 px-2 py-1 backdrop-blur-sm">No. {pad2(rank)}</span>
-          </span>
-        )}
-
-        {/* Desktop hover actions — mobile gets the always-visible add button below. */}
-        <div className="absolute inset-x-3 bottom-3 hidden translate-y-3 opacity-0 transition-[transform,opacity] duration-500 ease-out-soft group-focus-within/card:translate-y-0 group-focus-within/card:opacity-100 lg:flex lg:group-hover/card:translate-y-0 lg:group-hover/card:opacity-100">
-          <QuickViewButton product={product} className="w-full" />
+        {/* Desktop quick add — slides up on hover or keyboard focus */}
+        <div className="absolute inset-x-2.5 bottom-2.5 hidden translate-y-[calc(100%+12px)] gap-1.5 transition-transform duration-500 ease-out-soft group-focus-within/card:translate-y-0 lg:flex lg:group-hover/card:translate-y-0">
+          <QuickAdd product={product} variant="bar" />
+          <QuickViewButton product={product} />
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col pt-3.5 sm:pt-4">
-        <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-[0.12em] text-subtle uppercase">
-          <span>{categoryLabels[product.category]}</span>
-          {product.rating && (
-            <span className="flex items-center gap-1 tracking-normal normal-case text-muted">
-              <Star className="size-3 fill-butter text-butter" strokeWidth={0} aria-hidden />
-              <span className="sr-only">Rated</span>
-              {product.rating.toFixed(1)}
-              {product.reviewCount && <span className="hidden text-subtle sm:inline">({product.reviewCount})</span>}
-            </span>
-          )}
+      <div className="flex flex-1 flex-col px-1.5 pt-3 pb-1.5 sm:px-2 sm:pt-3.5">
+        <div className="flex items-center justify-between gap-2">
+          <span className="truncate text-[10.5px] font-medium tracking-[0.14em] text-subtle uppercase">
+            {categoryLabels[product.category]}
+          </span>
+          {product.rating && <Rating value={product.rating} compact className="shrink-0" />}
         </div>
 
-        <h3 className="mt-1.5 font-display text-[15px] leading-snug font-medium tracking-[-0.015em] text-ink sm:text-base">
-          <Link href={href} className="decoration-coral decoration-2 underline-offset-4 hover:underline">
+        <h3 className="mt-1 font-display text-[14.5px] leading-snug font-medium tracking-[-0.02em] text-ink sm:text-[15.5px]">
+          <Link href={href} className="underline-offset-4 hover:underline">
             {product.name}
           </Link>
         </h3>
 
-        {note && <div className="mt-1.5">{note}</div>}
-
-        <div className="mt-auto flex items-end justify-between gap-2 pt-2.5">
+        <div className="mt-auto flex items-end justify-between gap-2 pt-2">
           <Price price={product.price} originalPrice={product.originalPrice} discount={product.discount} />
-          <AddToCartButton product={product} />
+          <QuickAdd product={product} variant="icon" className="lg:hidden" />
         </div>
       </div>
     </article>

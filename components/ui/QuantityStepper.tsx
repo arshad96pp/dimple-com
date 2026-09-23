@@ -17,11 +17,11 @@ export function QuantityStepper({
   min?: number;
 }) {
   const btn = cn(
-    "grid place-items-center rounded-full transition-colors hover:bg-ink/5 disabled:opacity-30",
+    "grid place-items-center rounded-full transition-colors hover:bg-shell disabled:opacity-30",
     size === "sm" ? "size-8" : "size-11",
   );
   return (
-    <div className={cn("inline-flex items-center rounded-full border border-ink/15", size === "lg" && "h-13 px-1")}>
+    <div className={cn("inline-flex items-center rounded-full border border-ink/12", size === "lg" && "h-[52px] px-1")}>
       <button type="button" className={btn} onClick={() => onChange(value - 1)} disabled={value <= min} aria-label={`Decrease quantity of ${label}`}>
         <Minus className="size-3.5" aria-hidden />
       </button>

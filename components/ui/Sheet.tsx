@@ -86,7 +86,7 @@ export function Sheet({ open, onClose, label, side = "right", className, childre
       {open && (
         <div className="fixed inset-0 z-[60]">
           <m.div
-            className="absolute inset-0 bg-ink/35 backdrop-blur-[2px]"
+            className="absolute inset-0 bg-ink/20 backdrop-blur-[3px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export function Sheet({ open, onClose, label, side = "right", className, childre
             aria-modal="true"
             aria-label={label}
             tabIndex={-1}
-            className={cn("absolute flex flex-col bg-cream shadow-2xl outline-none", panelPosition[side], className)}
+            className={cn("absolute flex flex-col bg-cream shadow-[0_30px_80px_-30px_rgba(37,37,37,0.35)] outline-none", panelPosition[side], className)}
             initial={motionProps.initial}
             animate={motionProps.animate}
             exit={motionProps.initial}

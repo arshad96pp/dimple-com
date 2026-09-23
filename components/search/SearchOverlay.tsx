@@ -64,7 +64,7 @@ export function SearchOverlay({ suggestions }: { suggestions: Product[] }) {
             type="button"
             onClick={actions.closeSearch}
             aria-label="Close search"
-            className="grid size-10 shrink-0 place-items-center rounded-full hover:bg-ink/5"
+            className="grid size-10 shrink-0 place-items-center rounded-full hover:bg-shell"
           >
             <X className="size-5" />
           </button>
@@ -87,7 +87,7 @@ export function SearchOverlay({ suggestions }: { suggestions: Product[] }) {
 function PopularSearches({ onPick }: { onPick: (term: string) => void }) {
   return (
     <div>
-      <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] text-subtle uppercase">
+      <p className="mb-3 flex items-center gap-2 eyebrow">
         <TrendingUp className="size-3.5" aria-hidden /> Popular searches
       </p>
       <ul className="flex flex-wrap gap-2">
@@ -96,7 +96,7 @@ function PopularSearches({ onPick }: { onPick: (term: string) => void }) {
             <button
               type="button"
               onClick={() => onPick(term)}
-              className="rounded-full border border-ink/15 px-4 py-2 text-sm font-medium text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-cream"
+              className="rounded-full border border-ink/12 px-4 py-2 text-sm font-medium text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-cream"
             >
               {term}
             </button>
@@ -112,7 +112,7 @@ function IdleState({ suggestions, onPick }: { suggestions: Product[]; onPick: (t
     <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-14">
       <PopularSearches onPick={onPick} />
       <div>
-        <p className="mb-3 text-[11px] font-semibold tracking-[0.18em] text-subtle uppercase">Loved this week</p>
+        <p className="mb-3 eyebrow">Loved this week</p>
         <ResultList products={suggestions} />
       </div>
     </div>
@@ -125,10 +125,10 @@ function SearchResults({ query, onPick }: { query: string; onPick: (term: string
   if (results.length === 0) {
     return (
       <div className="flex flex-col items-center py-8 text-center">
-        <div className="relative mb-5 grid size-20 place-items-center rounded-full bg-lavender-100">
+        <div className="relative mb-5 grid size-20 place-items-center rounded-full bg-lavender-50">
           <Search className="size-7 text-ink" aria-hidden />
           <StarDoodle className="absolute -top-1 -right-1 size-5 text-butter" />
-          <SparkleDoodle className="absolute bottom-0 -left-2 size-4 text-coral" />
+          <SparkleDoodle className="absolute bottom-0 -left-2 size-4 text-berry" />
         </div>
         <p className="text-lg font-semibold">Nothing cute for &ldquo;{query}&rdquo; — yet.</p>
         <p className="mt-1 mb-6 text-sm text-muted">Try a different word, or one of these favourites.</p>
@@ -139,7 +139,7 @@ function SearchResults({ query, onPick }: { query: string; onPick: (term: string
 
   return (
     <div>
-      <p className="mb-3 text-[11px] font-semibold tracking-[0.18em] text-subtle uppercase" aria-live="polite">
+      <p className="mb-3 eyebrow" aria-live="polite">
         {results.length} {results.length === 1 ? "result" : "results"}
       </p>
       <ResultList products={results} />
@@ -162,9 +162,9 @@ function ResultList({ products }: { products: Product[] }) {
           <Link
             href={`/products/${product.slug}`}
             onClick={actions.closeSearch}
-            className="group flex items-center gap-3.5 rounded-2xl p-2 transition-colors duration-300 hover:bg-cream-100"
+            className="group flex items-center gap-3.5 rounded-2xl p-2 transition-colors duration-300 hover:bg-shell"
           >
-            <span className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-cream-200">
+            <span className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-sand">
               <Image
                 src={product.images[0].src}
                 alt=""
@@ -177,7 +177,7 @@ function ResultList({ products }: { products: Product[] }) {
               <span className="block truncate font-display text-[15px] font-medium text-ink">{product.name}</span>
               <span className="text-xs text-muted">{categoryLabels[product.category]}</span>
             </span>
-            <span className="pr-2 font-display text-sm font-semibold">{formatPrice(product.price)}</span>
+            <span className="pr-2 font-display text-sm font-medium">{formatPrice(product.price)}</span>
           </Link>
         </li>
       ))}

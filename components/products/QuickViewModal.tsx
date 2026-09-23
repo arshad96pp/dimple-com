@@ -7,7 +7,7 @@ import { actions, useUI } from "@/lib/store";
 import { Price } from "@/components/ui/Price";
 import { Rating } from "@/components/ui/Rating";
 import { Sheet } from "@/components/ui/Sheet";
-import { ProductBadge } from "./ProductBadge";
+import { Badge } from "@/components/ui/Badge";
 import { ProductGallery } from "./ProductGallery";
 import { PurchasePanel } from "./PurchasePanel";
 
@@ -29,7 +29,7 @@ export function QuickViewModal() {
             onClick={actions.closeQuickView}
             aria-label="Close quick view"
             data-autofocus
-            className="absolute top-3 right-3 z-10 grid size-10 place-items-center rounded-full bg-cream/90 backdrop-blur-sm hover:bg-cream"
+            className="absolute top-3 right-3 z-10 grid size-10 place-items-center rounded-full bg-paper/90 backdrop-blur-sm hover:bg-paper"
           >
             <X className="size-5" />
           </button>
@@ -37,12 +37,12 @@ export function QuickViewModal() {
             <ProductGallery key={product.id} images={product.images} sizes="(min-width: 640px) 440px, 90vw" />
             <div className="flex flex-col sm:py-4 sm:pr-4">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold tracking-[0.16em] text-subtle uppercase">
+                <span className="eyebrow">
                   {categoryLabels[product.category]}
                 </span>
-                {product.badge && <ProductBadge badge={product.badge} />}
+                {product.badge && <Badge badge={product.badge} />}
               </div>
-              <h2 className="mt-3 text-3xl leading-tight font-semibold sm:text-[2.1rem]">{product.name}</h2>
+              <h2 className="mt-3 text-3xl leading-tight sm:text-[2.1rem]">{product.name}</h2>
               {product.rating && <Rating value={product.rating} count={product.reviewCount} className="mt-3" />}
               <Price
                 price={product.price}
@@ -56,7 +56,7 @@ export function QuickViewModal() {
                 <PurchasePanel product={product} />
               </div>
               <p className="mt-5 flex items-center gap-2 text-[13px] text-muted">
-                <Gift className="size-4 text-coral" aria-hidden /> Free gift wrap &amp; a handwritten note, on request.
+                <Gift className="size-4 text-berry" aria-hidden /> Free gift wrap &amp; a handwritten note, on request.
               </p>
               <Link
                 href={`/products/${product.slug}`}

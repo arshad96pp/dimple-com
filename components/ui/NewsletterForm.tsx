@@ -8,15 +8,16 @@ import { cn, isValidEmail } from "@/lib/utils";
 type Status = "idle" | "error" | "success";
 
 interface NewsletterFormProps {
-  tone?: "light" | "dark";
+  /** `large` for the home-page section, `compact` for the footer. */
+  size?: "large" | "compact";
   className?: string;
 }
 
-export function NewsletterForm({ tone = "light", className }: NewsletterFormProps) {
+export function NewsletterForm({ size = "compact", className }: NewsletterFormProps) {
   const id = useId();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const dark = tone === "dark";
+  const large = size === "large";
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,23 +28,16 @@ export function NewsletterForm({ tone = "light", className }: NewsletterFormProp
     // Hook up to your email provider here.
     setStatus("success");
     setEmail("");
-    actions.toast({ title: "You're on the list", description: "Watch your inbox for a little hello.", tone: "success" });
+    actions.toast({ title: "You're in the loop", description: "Watch your inbox for a little hello.", tone: "success" });
   };
 
   if (status === "success") {
     return (
-      <p
-        role="status"
-        className={cn(
-          "flex items-center gap-2 text-sm font-medium",
-          dark ? "text-cream" : "text-ink",
-          className,
-        )}
-      >
-        <span className="grid size-7 place-items-center rounded-full bg-mint text-ink">
+      <p role="status" className={cn("flex items-center gap-2.5 text-sm font-medium text-ink", className)}>
+        <span className="grid size-8 place-items-center rounded-full bg-mint">
           <Check className="size-4" aria-hidden />
         </span>
-        Thanks! Your first surprise is on its way.
+        Thank you! A little hello is on its way.
       </p>
     );
   }
@@ -55,9 +49,8 @@ export function NewsletterForm({ tone = "light", className }: NewsletterFormProp
       </label>
       <div
         className={cn(
-          "flex items-center gap-1.5 rounded-full border p-1.5 transition-colors duration-300 focus-within:border-coral",
-          dark ? "border-cream/20 bg-cream/5" : "border-ink/15 bg-white",
-          status === "error" && "border-coral-dark",
+          "flex items-center gap-1.5 rounded-full border bg-paper p-1.5 transition-[border-color,box-shadow] duration-300 focus-within:border-ink/40 focus-within:shadow-[0_0_0_4px_rgba(37,37,37,0.04)]",
+          status === "error" ? "border-berry" : "border-ink/10",
         )}
       >
         <input
@@ -65,7 +58,7 @@ export function NewsletterForm({ tone = "light", className }: NewsletterFormProp
           type="email"
           inputMode="email"
           autoComplete="email"
-          placeholder="you@example.com"
+          placeholder="Your email address"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -74,23 +67,24 @@ export function NewsletterForm({ tone = "light", className }: NewsletterFormProp
           aria-invalid={status === "error"}
           aria-describedby={status === "error" ? `${id}-error` : undefined}
           className={cn(
-            "h-10 min-w-0 flex-1 bg-transparent pl-4 text-[15px] outline-none",
-            dark ? "text-cream placeholder:text-cream/40" : "text-ink placeholder:text-subtle",
+            "min-w-0 flex-1 bg-transparent pl-4 text-ink outline-none placeholder:text-subtle focus-visible:outline-none",
+            large ? "h-11 text-[15px] sm:h-12" : "h-10 text-sm",
           )}
         />
         <button
           type="submit"
+          aria-label="Subscribe"
           className={cn(
-            "group inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-sm font-semibold transition-colors duration-300 sm:px-5",
-            dark ? "bg-cream text-ink hover:bg-butter" : "bg-ink text-cream hover:bg-coral",
+            "group inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-ink font-medium text-cream transition-colors duration-300 hover:bg-ink-soft",
+            large ? "h-11 px-4 text-sm sm:h-12 sm:px-6" : "size-10",
           )}
         >
-          Subscribe
+          {large && <span className="hidden min-[400px]:inline">Subscribe</span>}
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
         </button>
       </div>
       {status === "error" && (
-        <p id={`${id}-error`} role="alert" className={cn("mt-2 pl-4 text-xs font-medium", dark ? "text-pink" : "text-coral-dark")}>
+        <p id={`${id}-error`} role="alert" className="mt-2 pl-4 text-xs font-medium text-berry">
           That email doesn&apos;t look quite right — mind checking it?
         </p>
       )}

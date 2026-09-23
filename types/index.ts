@@ -14,7 +14,10 @@ export type CategorySlug =
   | "beauty"
   | "toys";
 
-export type ProductBadge = "New" | "Sale" | "Best Seller" | "Limited" | "Gift Pick";
+export type ProductBadge = "New" | "Just In" | "Sale" | "Best Seller" | "Limited" | "Gift Pick";
+
+/** Pastel accent names from the design tokens. */
+export type Tone = "blush" | "peach" | "butter" | "lavender" | "mint" | "sky";
 
 export type RecipientTag = "her" | "him" | "besties" | "kids" | "desk" | "just-because";
 
@@ -52,13 +55,15 @@ export interface Category {
   image: ProductImage;
   productCount: number;
   href: string;
+  tone: Tone;
 }
 
 export interface Testimonial {
   id: string;
   name: string;
   location: string;
-  avatar: string;
+  /** Optional photo; initials on a pastel disc are shown otherwise. */
+  avatar?: string;
   rating: number;
   quote: string;
   product: string;
@@ -70,6 +75,21 @@ export interface SocialPost {
   image: ProductImage;
   likes: number;
   href: string;
+}
+
+export interface HeroSlide {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  primary: NavLink;
+  secondary?: NavLink;
+  tone: Tone;
+  image: ProductImage;
+  /** Two small product shots that float around the main image. */
+  accents: [ProductImage, ProductImage];
+  /** A tiny price-tag caption on the first accent. */
+  tag: { label: string; price: number };
 }
 
 export interface CartItem {

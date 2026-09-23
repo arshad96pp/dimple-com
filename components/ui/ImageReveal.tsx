@@ -13,7 +13,7 @@ export function ImageReveal({ wrapperClassName, className, alt, ...props }: Imag
   const reduce = useReducedMotion();
   return (
     <m.div
-      className={cn("relative overflow-hidden bg-cream-200", wrapperClassName)}
+      className={cn("relative overflow-hidden bg-sand", wrapperClassName)}
       initial={reduce ? false : { clipPath: "inset(8% 8% 8% 8% round 24px)" }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0% round 0px)" }}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}

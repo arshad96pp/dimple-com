@@ -1,46 +1,41 @@
-import { collageTiles, featuredTabs, recipients, trendingNotes } from "@/data/merchandising";
-import { getCategories, getProducts, getProductsByIds, getProductsForRecipient, getSocialPosts, getTestimonials } from "@/lib/catalog";
+import { heroSlides } from "@/data/heroSlides";
+import { collageTiles, featuredTabs, recipients } from "@/data/merchandising";
+import { getCategories, getProducts, getProductsForRecipient, getSocialPosts, getTestimonials } from "@/lib/catalog";
 import type { Product, RecipientTag } from "@/types";
-import { BenefitsStrip } from "@/components/home/BenefitsStrip";
-import { BestSellers } from "@/components/home/BestSellers";
-import { CategoryShowcase } from "@/components/home/CategoryShowcase";
-import { EditorialBanner } from "@/components/home/EditorialBanner";
-import { EditorialCollage } from "@/components/home/EditorialCollage";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { GiftFinder } from "@/components/home/GiftFinder";
-import { Hero } from "@/components/home/Hero";
-import { NewArrivals } from "@/components/home/NewArrivals";
-import { Newsletter } from "@/components/home/Newsletter";
-import { SocialGallery } from "@/components/home/SocialGallery";
-import { Testimonials } from "@/components/home/Testimonials";
-import { TrendingProducts } from "@/components/home/TrendingProducts";
+import { CategoryShowcase } from "@/components/categories/CategoryShowcase";
+import { HeroSlider } from "@/components/hero/HeroSlider";
+import { BestSellers } from "@/components/sections/BestSellers";
+import { EditorialCollage } from "@/components/sections/EditorialCollage";
+import { EditorialGiftBanner } from "@/components/sections/EditorialGiftBanner";
+import { FeaturedProducts } from "@/components/sections/FeaturedProducts";
+import { GiftFinder } from "@/components/sections/GiftFinder";
+import { NewArrivals } from "@/components/sections/NewArrivals";
+import { Newsletter } from "@/components/sections/Newsletter";
+import { SocialSection } from "@/components/sections/SocialSection";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 export default async function HomePage() {
-  const [categories, allProducts, newArrivals, bestSellers, trending, testimonials, socialPosts, giftPicks] =
-    await Promise.all([
-      getCategories(),
-      getProducts(),
-      getProducts({ collection: "new", limit: 10 }),
-      getProducts({ collection: "best-sellers", sort: "rating", limit: 5 }),
-      getProductsByIds(Object.keys(trendingNotes)),
-      getTestimonials(),
-      getSocialPosts(),
-      Promise.all(recipients.map(async (r) => [r.id, await getProductsForRecipient(r.id, 4)] as const)),
-    ]);
+  const [categories, allProducts, newArrivals, bestSellers, testimonials, socialPosts, giftPicks] = await Promise.all([
+    getCategories(),
+    getProducts(),
+    getProducts({ collection: "new", limit: 10 }),
+    getProducts({ collection: "best-sellers", sort: "rating", limit: 4 }),
+    getTestimonials(),
+    getSocialPosts(),
+    Promise.all(recipients.map(async (r) => [r.id, await getProductsForRecipient(r.id, 4)] as const)),
+  ]);
 
   return (
     <>
-      <Hero />
-      <BenefitsStrip />
+      <HeroSlider slides={heroSlides} />
       <CategoryShowcase categories={categories} />
       <FeaturedProducts products={allProducts} tabs={featuredTabs} />
+      <EditorialGiftBanner />
       <NewArrivals products={newArrivals} />
-      <EditorialBanner />
-      <BestSellers products={bestSellers} />
       <GiftFinder recipients={recipients} picks={Object.fromEntries(giftPicks) as Record<RecipientTag, Product[]>} />
-      <TrendingProducts products={trending} notes={trendingNotes} />
+      <BestSellers products={bestSellers} />
       <EditorialCollage tiles={collageTiles} />
-      <SocialGallery posts={socialPosts} />
+      <SocialSection posts={socialPosts} />
       <Testimonials testimonials={testimonials} />
       <Newsletter />
     </>

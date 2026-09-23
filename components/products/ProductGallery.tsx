@@ -18,7 +18,7 @@ export function ProductGallery({ images, sizes, preload, className }: ProductGal
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream-200">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-shell">
         {images.map((image, i) => (
           <Image
             key={image.src}
@@ -49,7 +49,7 @@ export function ProductGallery({ images, sizes, preload, className }: ProductGal
               aria-label={`Show image ${i + 1}`}
               aria-pressed={i === active}
               className={cn(
-                "relative size-16 overflow-hidden rounded-xl bg-cream-200 ring-2 ring-offset-2 ring-offset-cream transition-[box-shadow,opacity] duration-300",
+                "relative size-16 overflow-hidden rounded-xl bg-shell ring-2 ring-offset-2 ring-offset-cream transition-[box-shadow,opacity] duration-300",
                 i === active ? "ring-ink" : "opacity-70 ring-transparent hover:opacity-100",
               )}
             >
