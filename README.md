@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dimple — gift & stationery storefront (frontend)
 
-## Getting Started
-
-First, run the development server:
+A Next.js 16 + Tailwind v4 + Framer Motion storefront with static demo data, built so a real backend can be plugged in without touching UI components.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev     # http://localhost:3000
+pnpm build && pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Path | What it is |
+| --- | --- |
+| `data/images.ts` | **Every image URL on the site.** Swap photography here only. |
+| `data/products.ts` | 41 demo products (typed seeds → `Product`). Discounts are derived. |
+| `data/categories.ts`, `testimonials.ts`, `socialPosts.ts` | Other demo content. |
+| `data/merchandising.ts` | Presentation config: featured tabs, gift-finder recipients, trending notes, collage tiles. |
+| `data/site.ts` | Brand name, nav, footer links, free-shipping threshold. |
+| `lib/catalog.ts` | **Data access layer.** Async functions (`getProducts`, `searchProducts`, …). Replace their bodies with `fetch()` calls to go live. |
+| `lib/store.ts` | Cart, wishlist and UI state (`useSyncExternalStore`, persisted to localStorage). |
+| `types/index.ts` | Shared domain types. |
+| `components/ui` | Primitives: `Button`, `Sheet` (accessible dialog), `SectionHeading`, `Reveal`, skeletons… |
+| `components/products` | `ProductCard`, `ProductGrid`, `ProductCarousel`, `QuickViewModal`, … |
+| `components/home` | One file per home-page section. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Connecting a backend
 
-## Learn More
+1. Point the functions in `lib/catalog.ts` at your API and map responses to the types in `types/index.ts`.
+2. Replace the `actions` in `lib/store.ts` that mutate the cart/wishlist with API calls (the UI reads through selectors, so components stay the same).
+3. Swap the demo checkout in `components/cart/CartDrawer.tsx` for a redirect to your payment provider, and the newsletter/sign-in handlers for real endpoints.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Images are Unsplash placeholders (allowed in `next.config.ts` → `images.remotePatterns`); update that list if you move to your own CDN.
