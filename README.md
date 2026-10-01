@@ -1,4 +1,4 @@
-# Dimple — gift & stationery storefront (frontend)
+# ToyyGift — gift & stationery storefront (frontend)
 
 A Next.js 16 + Tailwind v4 + Swiper + Framer Motion storefront with static demo data, built so a real backend can be plugged in without touching UI components.
 

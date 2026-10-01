@@ -74,7 +74,7 @@ export function Footer() {
         aria-hidden
         className="pointer-events-none -mb-[0.26em] text-center font-display text-[26vw] leading-[0.8] font-semibold tracking-[-0.08em] text-blush/70 select-none"
       >
-        dimple
+        toyygift
       </p>
     </footer>
   );

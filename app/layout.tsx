@@ -21,7 +21,8 @@ const dmSans = DM_Sans({
 
 const sora = Sora({
   variable: "--font-sora",
-  subsets: ["latin"],
+  // latin-ext carries the dotless "ı" used by the wordmark
+  subsets: ["latin", "latin-ext"],
   weight: ["300", "400", "500", "600"],
   display: "swap",
 });

@@ -22,7 +22,7 @@ export const infoPages: InfoPage[] = [
     intro: "If something isn't quite right, we'll make it right.",
     sections: [
       { heading: "7-day returns", body: "Return unused items in original packaging within 7 days of delivery for a full refund to your original payment method." },
-      { heading: "How to start", body: "Email hello@dimple.example.com with your order number. We'll arrange a free pickup within 48 hours." },
+      { heading: "How to start", body: "Email hello@toyygift.example.com with your order number. We'll arrange a free pickup within 48 hours." },
       { heading: "Exceptions", body: "For hygiene reasons, opened beauty products and personalised items can't be returned unless they arrived damaged." },
     ],
   },
@@ -41,7 +41,7 @@ export const infoPages: InfoPage[] = [
     title: "Contact",
     intro: "Real humans, happy to help. We reply within one working day.",
     sections: [
-      { heading: "Email", body: "hello@dimple.example.com" },
+      { heading: "Email", body: "hello@toyygift.example.com" },
       { heading: "WhatsApp", body: "+91 98765 43210 · Mon–Sat, 10am–7pm IST" },
       { heading: "Studio", body: "12, 4th Cross, Indiranagar, Bengaluru 560038 (by appointment)" },
     ],
@@ -49,7 +49,7 @@ export const infoPages: InfoPage[] = [
   {
     slug: "our-story",
     title: "Our Story",
-    intro: "Dimple started with a shoebox of stickers and a belief that small things can make a big difference to a day.",
+    intro: "ToyyGift started with a shoebox of stickers and a belief that small things can make a big difference to a day.",
     sections: [
       { heading: "Why little things", body: "A good pen, a pretty notebook, a candle that smells like Sunday — they're tiny, but they show up for you every single day." },
       { heading: "How we make them", body: "We design in-house and work with small makers across India, choosing better materials and fewer, more thoughtful products." },

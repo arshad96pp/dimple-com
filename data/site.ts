@@ -1,15 +1,15 @@
 import type { NavLink } from "@/types";
 
 export const site = {
-  name: "Dimple",
-  legalName: "Dimple Goods Co.",
+  name: "ToyyGift",
+  legalName: "ToyyGift Goods Co.",
   tagline: "Little things. Big smiles.",
   description:
     "Cute stationery, thoughtful gifts and tiny treasures for the people you love. Free shipping above ₹1499, gift wrapping on every order.",
-  url: "https://dimple.example.com",
+  url: "https://toyygift.example.com",
   freeShippingThreshold: 1499,
   instagram: "https://instagram.com",
-  handle: "@dimple.goods",
+  handle: "@toyygift",
 } as const;
 
 /** Desktop header links; "Collections" is a category menu rendered separately. */
